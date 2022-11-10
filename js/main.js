@@ -35,9 +35,7 @@ function onCellClick() {
 
     if (bombs.includes(numCella)) {
         alert("Hai trovato una bomba!");
-        this.classList.add("active", "bomb");
-    } else {
-        this.classList.toggle("active");
+        this.classList.add("bg-danger");
     }
 }
 
