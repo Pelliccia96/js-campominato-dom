@@ -23,6 +23,8 @@ buttonEl.addEventListener("click", function() {
         
         gridContainerEl.append( newCell );
 
+        bombs = generateBombList(+totGrid);
+
         newCell.addEventListener("click", function() {
             this.classList.toggle("bg-primary");
             console.log(this.textContent);
@@ -54,11 +56,12 @@ function generateRandomNumber (min, max) {
  * @param {array}
  */
 
-function generateBombList(grid) {
+function generateBombList(totGrid) {
     const bombList = [];
+    console.log(bombList);
 
     while (bombList.length < 16) {
-        const num = generateRandomNumber(1, grid);
+        const num = generateRandomNumber(1, totGrid);
         if (!bombList.includes(num)) {
             bombList.push (num);
         }
