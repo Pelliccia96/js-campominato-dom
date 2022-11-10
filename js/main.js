@@ -1,6 +1,7 @@
 const buttonEl = document.getElementById("button");
 const options = document.getElementById("grids");
 let bombs = [];
+let counter = 0;
 
 buttonEl.addEventListener("click", function() {
     let grid = parseInt(options.value);
@@ -29,20 +30,28 @@ function creaCelle (grid) {
         newCell.addEventListener( "click", onCellClick );
         
         gridContainerEl.append( newCell );
-
-        newCell.addEventListener("click", function() {
-            this.classList.toggle("bg-primary");
-            console.log(this.textContent);
-        })
     }
 }
 
 function onCellClick() {
     const numCella = parseInt(this.dataset.numCella);
+    const counterEl = document.getElementById("counter");
+
+    if (this.classList.contains("bg-primary")) {
+        return;
+    } else if (this.classList.contains("bg-danger")) {
+        return;
+    }
+
+    counter++
+    counterEl.innerHTML = ("Punteggio: " + counter);
 
     if (bombs.includes(numCella)) {
-        alert("Hai trovato una bomba!");
+        alert("Hai trovato una bomba! Game Over");
         this.classList.add("bg-danger");
+    } else {
+        this.classList.toggle("bg-primary");
+        console.log(this.textContent);
     }
 }
 
