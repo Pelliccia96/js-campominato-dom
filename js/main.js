@@ -2,6 +2,7 @@ const buttonEl = document.getElementById("button");
 const options = document.getElementById("grids");
 let bombs = [];
 let counter = 0;
+let bombaEsplosa = false;
 
 buttonEl.addEventListener("click", function() {
     let grid = parseInt(options.value);
@@ -37,6 +38,10 @@ function onCellClick() {
     const numCella = parseInt(this.dataset.numCella);
     const counterEl = document.getElementById("counter");
 
+    if (bombaEsplosa === true) {
+        return;
+    }
+
     if (this.classList.contains("bg-primary")) {
         return;
     } else if (this.classList.contains("bg-danger")) {
@@ -49,6 +54,7 @@ function onCellClick() {
     if (bombs.includes(numCella)) {
         alert("Hai trovato una bomba! Game Over");
         this.classList.add("bg-danger");
+        bombaEsplosa = true;
     } else {
         this.classList.toggle("bg-primary");
         console.log(this.textContent);
