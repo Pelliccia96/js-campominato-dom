@@ -1,4 +1,5 @@
 const buttonEl = document.getElementById("button");
+let bombs = [];
 
 buttonEl.addEventListener("click", function() {
     const options = document.getElementById("grids");
@@ -16,7 +17,11 @@ buttonEl.addEventListener("click", function() {
         newCell.classList.add("cell");
         newCell.style.flexBasis = 100 / grid + "%";
         newCell.innerHTML = `${i}`;
-        gridContainerEl.append(newCell);
+
+        newCell.dataset.numCella = i + 1;
+        newCell.addEventListener( "click", onCellClick );
+        
+        gridContainerEl.append( newCell );
 
         newCell.addEventListener("click", function() {
             this.classList.toggle("bg-primary");
@@ -24,3 +29,41 @@ buttonEl.addEventListener("click", function() {
         })
     }
 })
+
+function onCellClick() {
+    const numCella = +this.dataset.numCella;
+
+    if (bombs.includes(numCella)) {
+        alert("Hai trovato una bomba!");
+        this.classList.add("active", "bomb");
+    } else {
+        this.classList.toggle("active");
+    }
+}
+
+/**
+ * @param {number} min (numero minimo);
+ * @param {number} max (numero massimo);
+ */
+
+function generateRandomNumber (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+/**
+ * @param {number}
+ * @param {array}
+ */
+
+function generateBombList(grid) {
+    const bombList = [];
+
+    while (bombList.length < 16) {
+        const num = generateRandomNumber(1, grid);
+        if (!bombList.includes(num)) {
+            bombList.push (num);
+        }
+    }
+    return bombList;
+}
