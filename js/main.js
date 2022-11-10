@@ -1,9 +1,14 @@
 const buttonEl = document.getElementById("button");
+const options = document.getElementById("grids");
 let bombs = [];
 
 buttonEl.addEventListener("click", function() {
-    const options = document.getElementById("grids");
     let grid = parseInt(options.value);
+    creaCelle(grid);
+})
+
+function creaCelle (grid) {
+
     console.log("Numero righe: " + grid);
 
     let totGrid = grid * grid;
@@ -12,28 +17,28 @@ buttonEl.addEventListener("click", function() {
     const gridContainerEl = document.querySelector(".grid-container");
     gridContainerEl.innerHTML = "";
 
+    bombs = generateBombList(+totGrid);
+
     for (let i = 1; i <= totGrid; i++) {
         const newCell = document.createElement("div");
         newCell.classList.add("cell");
         newCell.style.flexBasis = 100 / grid + "%";
         newCell.innerHTML = `${i}`;
 
-        newCell.dataset.numCella = i + 1;
+        newCell.dataset.numCella = i;
         newCell.addEventListener( "click", onCellClick );
         
         gridContainerEl.append( newCell );
-
-        bombs = generateBombList(+totGrid);
 
         newCell.addEventListener("click", function() {
             this.classList.toggle("bg-primary");
             console.log(this.textContent);
         })
     }
-})
+}
 
 function onCellClick() {
-    const numCella = +this.dataset.numCella;
+    const numCella = parseInt(this.dataset.numCella);
 
     if (bombs.includes(numCella)) {
         alert("Hai trovato una bomba!");
