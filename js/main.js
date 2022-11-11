@@ -3,6 +3,7 @@ const options = document.getElementById("grids");
 let bombs = [];
 let counter = 0;
 let bombaEsplosa = false;
+let totGrid;
 
 buttonEl.addEventListener("click", function() {
     let grid = parseInt(options.value);
@@ -13,7 +14,7 @@ function creaCelle (grid) {
 
     console.log("Numero righe: " + grid);
 
-    let totGrid = grid * grid;
+    totGrid = grid * grid;
     console.log("Numero celle: " + totGrid);
 
     const gridContainerEl = document.querySelector(".grid-container");
@@ -58,6 +59,10 @@ function onCellClick() {
     } else {
         this.classList.toggle("bg-primary");
         console.log(this.textContent);
+        if (counter === (totGrid - 16)) {
+            console.log(counter);
+            alert("Congratulazioni! Hai vinto!");
+        }
     }
 }
 
