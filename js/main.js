@@ -56,6 +56,11 @@ function onCellClick() {
         alert("Hai trovato una bomba! Game Over");
         this.classList.add("bg-danger");
         bombaEsplosa = true;
+        for (j = 0; j < bombs.length; j++) {
+            const checkBombs = document.querySelector(`.grid-container :nth-child(${bombs [j]})`);
+            console.log(checkBombs);
+            checkBombs.classList.add("bg-danger");
+        }
     } else {
         this.classList.toggle("bg-primary");
         console.log(this.textContent);
